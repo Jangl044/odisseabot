@@ -11,7 +11,7 @@ import NodeCache from 'node-cache'
 const pkg = JSON.parse(fs.readFileSync('./package.json', 'utf-8'))
 const moduleCache = new NodeCache({ stdTTL: 300 });
 
-/*⭑⭒━━━✦❘༻☾⋆⁺₊✧ 𝓿𝓪𝓻𝓮𝓫𝓸𝓽 ✧₊⁺⋆☽༺❘✦━━━⭒⭑*/
+/*⭑⭒━━━✦❘༻☾⋆⁺₊✧ dangerbot ✧₊⁺⋆☽༺❘✦━━━⭒⭑*/
 
 global.luxifer = ['212781816909',]
 global.owner = [
@@ -30,7 +30,7 @@ global.nomebot = '✧˚🩸 dangerbot 🕊️˚✧'
 global.wm = 'danger ✧ bot'
 global.autore = 'luxifer'
 global.dev = '⋆｡˚- luxifer'
-global.testobot = `༻⋆⁺₊𝓿𝓪𝓻𝓮𝓫𝓸𝓽₊⁺⋆༺`
+global.testobot = `༻⋆⁺₊dangerbot₊⁺⋆༺`
 global.versione = pkg.version
 global.errore = '⚠️ *Errore inatteso!* Usa il comando `.segnala _errore_` per avvisare lo sviluppatore.'
 
