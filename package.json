@@ -1,7 +1,7 @@
 {
-  "name": "varebot",
+  "name": "dangerbot",
   "version": "2.5.8",
-  "description": "Miglior bot di zozzap by sam",
+  "description": "Miglior bot di zozzap by luxifer",
   "main": "based.js",
   "type": "module",
   "license": "Apache-2.0",
