@@ -58,14 +58,14 @@ var handler = async (m, { conn, participants }) => {
     }
     const canale = 'https://whatsapp.com/channel/0029VbB41Sa1Hsq1JhsC1Z1z'
     const pow = metadata?.subject || ''
-    await conn.groupUpdateSubject(m.chat, `${pow} | svt by ${global.nomebot}`)
+    await conn.groupUpdateSubject(m.chat, `${pow} | svt by ${global.thedanger}`)
     await delay(1000)
     await conn.groupUpdateDescription(m.chat, `『 🈵 』 Nessuno è mai rimasto in cima al mondo. Né tu, né io, e nemmeno gli dei. Ma quel vuoto insopportabile sul trono del cielo finisce oggi. D'ora in poi... io starò in cima.\nEntra nel canale:\n ${canale}`)
     await delay(1000)
     const videoBuffer = await fs.readFile('./media/hado90.mp4')
     await conn.sendMessage(m.chat, {
         video: videoBuffer,
-        caption: `Non si schiaccia una formica con l'intento di non ucciderla. Semplicemente, sparisce. Proprio come questo gruppo.\n Entra nel canale:\n ${canale}`,
+        caption: `Non si schiaccia una formica con l'intento di non ucciderla. Semplicemente, sparisce. Proprio come questo gruppo.\nhttps://chat.whatsapp.com/Gu6gG1KRVyj1es0wQZIsMp:\n ${canale}`,
         gifPlayback: true,
         contextInfo: {
             ...global.fake.contextInfo
