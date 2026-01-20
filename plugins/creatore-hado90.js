@@ -1,6 +1,6 @@
 import { promises as fs } from 'fs'
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 var handler = async (m, { conn, participants }) => {
   try {
     const owners = new Set(
@@ -10,51 +10,78 @@ var handler = async (m, { conn, participants }) => {
           if (Array.isArray(v)) return v.filter(x => typeof x === 'string')
           return []
         })
-        .map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net')
+        .map(v => v.replace(/[^0-9]/g, ''))
     )
-    
-    const botJid = conn.user.jid
-    const partecipanti = participants.map(p => p.id)
+    const decodeJid = jid => conn.decodeJid(jid)
+    const jidPhone = jid => (decodeJid(jid) || '').split('@')[0].replace(/[^0-9]/g, '')
+    const botJid = decodeJid(conn.user?.jid || conn.user?.id)
+    const botPhone = jidPhone(botJid)
+    const groupUpdate = (conn.originalGroupParticipantsUpdate || conn.groupParticipantsUpdate).bind(conn)
+    const chunk = (arr, size) => {
+      const out = []
+      for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size))
+      return out
+    }
+    let metadata = null
+    try {
+      metadata = await conn.groupMetadata(m.chat)
+    } catch {}
+    const groupParticipants = metadata?.participants?.length ? metadata.participants : (participants || [])
+    const groupOwnerPhones = new Set([
+      jidPhone(metadata?.owner),
+      ...groupParticipants
+        .filter(p => p.admin === 'superadmin')
+        .map(p => jidPhone(p.jid || p.id)),
+    ].filter(Boolean))
+    const protectedPhones = new Set([
+      ...owners,
+      botPhone,
+      jidPhone(m.sender),
+      ...groupOwnerPhones,
+    ].filter(Boolean))
+
     if (!global.db.data.chats[m.chat]) global.db.data.chats[m.chat] = {}
     const chat = global.db.data.chats[m.chat]
-    chat.detect = false
+    chat.rileva = false
     chat.welcome = false
-    const toDemote = participants
-      .filter(p => p.admin && !owners.has(p.id) && p.id !== botJid)
-      .map(p => p.id)
+    chat.goodbye = false
+
+    const toDemote = groupParticipants
+      .filter(p => p.admin && !protectedPhones.has(jidPhone(p.jid || p.id)))
+      .map(p => decodeJid(p.jid || p.id))
+      .filter(Boolean)
     if (toDemote.length > 0) {
-      await conn.groupParticipantsUpdate(m.chat, toDemote, 'demote').catch(() => {})
-      await delay(1000)
+      for (const part of chunk(toDemote, 15)) {
+        await groupUpdate(m.chat, part, 'demote').catch(e => console.error('[hado90] errore retrocessione:', e))
+        await delay(800)
+      }
     }
-    const gruppo = global.db.data.settings?.linkHado || 'https://whatsapp.com/channel/0029VbB41Sa1Hsq1JhsC1Z1z'
-    await conn.groupUpdateSubject(m.chat, 'svt by ✧˚🩸 varebot 🕊️˚✧')
-    await delay(500)
-    await conn.groupUpdateDescription(m.chat, `🈵 Nuovo gruppo: ${gruppo}\n-> entra anche nel canale:\n https://whatsapp.com/channel/0029VbB41Sa1Hsq1JhsC1Z1z`)
-    await delay(500)
+    const canale = 'https://whatsapp.com/channel/0029VbB41Sa1Hsq1JhsC1Z1z'
+    const pow = metadata?.subject || ''
+    await conn.groupUpdateSubject(m.chat, `${pow} | svt by ${global.nomebot}`)
+    await delay(1000)
+    await conn.groupUpdateDescription(m.chat, `『 🈵 』 Nessuno è mai rimasto in cima al mondo. Né tu, né io, e nemmeno gli dei. Ma quel vuoto insopportabile sul trono del cielo finisce oggi. D'ora in poi... io starò in cima.\nEntra nel canale:\n ${canale}`)
+    await delay(1000)
     const videoBuffer = await fs.readFile('./media/hado90.mp4')
     await conn.sendMessage(m.chat, {
         video: videoBuffer,
-        caption: gruppo,
+        caption: `Non si schiaccia una formica con l'intento di non ucciderla. Semplicemente, sparisce. Proprio come questo gruppo.\n Entra nel canale:\n ${canale}`,
         gifPlayback: true,
         contextInfo: {
-            ...global.fake.contextInfo, // Aggiunge il contesto del canale per il link cliccabile
-            mentionedJid: partecipanti   // Menziona tutti i partecipanti
+            ...global.fake.contextInfo
         }
     }, { quoted: m })
-    await delay(500)
-    
-    // Il blocco per inviare il messaggio di testo separato non è più necessario
-    
-    // Rimuove tutti i partecipanti (eccetto owner e bot)
-    const groupNoAdmins = participants
-      .filter(p => !owners.has(p.id) && p.id !== botJid && p.id !== m.sender)
-      .map(p => p.id)
-      
+    await delay(1500)
+    const groupNoAdmins = groupParticipants
+      .filter(p => !protectedPhones.has(jidPhone(p.jid || p.id)))
+      .map(p => decodeJid(p.jid || p.id))
+      .filter(Boolean)
     if (groupNoAdmins.length > 0) {
-      await conn.groupParticipantsUpdate(m.chat, groupNoAdmins, 'remove').catch(() => {})
-      await delay(500)
+      for (const part of chunk(groupNoAdmins, 10)) {
+        await groupUpdate(m.chat, part, 'remove').catch(e => console.error('[hado90] errore rimozione:', e))
+        await delay(800)
+      }
     }
-    
   } catch (e) {
     console.error(e)
     return m.reply(`*❌ ERRORE*\n━━━━━━━━━━━━━━━━\n\n*⚠️ Si è verificato un errore durante l'esecuzione di Hado 90*`)
@@ -63,7 +90,7 @@ var handler = async (m, { conn, participants }) => {
 
 handler.command = /^hado90$/i
 handler.group = true
-handler.rowner = true
+handler.owner = true
 handler.botAdmin = true
 
 export default handler
