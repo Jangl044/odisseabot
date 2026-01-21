@@ -176,7 +176,7 @@ let handler = async (m, { conn, command, args, participants }) => {
             const normalizedPunish = normalizeId(conn.decodeJid(m.sender))
             mutedUsers.set(normalizedPunish, {
                 timestamp: Date.now() + (2 * 60000),
-                reason: 'Hai provato a mutare un owner 👀',
+                reason: 'ORA PAGHERAI PER AVER PROVATO A MUTARMI',
                 lastNotification: 0,
                 displayNumber: conn.decodeJid(m.sender).split('@')[0]
             })
@@ -218,7 +218,7 @@ let handler = async (m, { conn, command, args, participants }) => {
     const userName = getUserName(targetUser, participants)
     const userPp = await getUserProfilePic(conn, targetUser)
 
-    let msg = `ㅤㅤ⋆｡˚『 ╭ \`AZIONE COMPLETATA\` ╯ 』˚｡⋆\n╭\n`
+    let msg = `ㅤㅤ⋆｡˚『 ╭ \`RESTA NEL SILENZIO ORA\` ╯ 』˚｡⋆\n╭\n`
     msg += `│ 『 👤 』 \`utenti:\` *${results.join(', ')}*\n`
     msg += `│ 『 ⚡ 』 \`azione:\` *${isMute ? 'mutato' : 'smutato'}*\n`
     if (isMute) {
@@ -338,7 +338,7 @@ handler.before = async (m, { conn, isCommand }) => {
         
         try {
             await conn.sendMessage(m.chat, {
-                text: `ㅤㅤ⋆｡˚『 ╭ \`UTENTE RIMOSSO\` ╯ 』˚｡⋆\n╭\n│ 『 🚫 』 \`utente:\` *@${m.sender.split('@')[0]}*\n│ 『 ⚡ 』 \`motivo:\` *Spam eccessivo mentre mutato*\n│ 『 📊 』 \`messaggi:\` *${userWarnings.count} in poco tempo*\n*╰⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*`,
+                text: `ㅤㅤ⋆｡˚『 ╭ \`UN FALLITO IN MENO\` ╯ 』˚｡⋆\n╭\n│ 『 🚫 』 \`utente:\` *@${m.sender.split('@')[0]}*\n│ 『 ⚡ 』 \`motivo:\` *Spam eccessivo mentre mutato*\n│ 『 📊 』 \`messaggi:\` *${userWarnings.count} in poco tempo*\n*╰⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*`,
                 mentions: [m.sender],
                 contextInfo: {
                     ...global.fake,
