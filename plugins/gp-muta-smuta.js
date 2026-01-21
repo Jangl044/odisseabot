@@ -176,7 +176,7 @@ let handler = async (m, { conn, command, args, participants }) => {
             const normalizedPunish = normalizeId(conn.decodeJid(m.sender))
             mutedUsers.set(normalizedPunish, {
                 timestamp: Date.now() + (2 * 60000),
-                reason: 'ORA PAGHERAI PER AVER PROVATO A MUTARMI',
+                reason: 'Hai osato mutarmi ora la pagherai cara',
                 lastNotification: 0,
                 displayNumber: conn.decodeJid(m.sender).split('@')[0]
             })
@@ -218,7 +218,7 @@ let handler = async (m, { conn, command, args, participants }) => {
     const userName = getUserName(targetUser, participants)
     const userPp = await getUserProfilePic(conn, targetUser)
 
-    let msg = `ㅤㅤ⋆｡˚『 ╭ \`RESTA NEL SILENZIO ORA\` ╯ 』˚｡⋆\n╭\n`
+    let msg = `ㅤㅤ⋆｡˚『 ╭ \`AZIONE COMPLETATA\` ╯ 』˚｡⋆\n╭\n`
     msg += `│ 『 👤 』 \`utenti:\` *${results.join(', ')}*\n`
     msg += `│ 『 ⚡ 』 \`azione:\` *${isMute ? 'mutato' : 'smutato'}*\n`
     if (isMute) {
