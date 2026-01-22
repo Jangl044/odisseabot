@@ -146,7 +146,7 @@ async function getRandomChannel() {
   if (!Array.isArray(global.IdCanale) || !Array.isArray(global.NomeCanale) || global.IdCanale.length === 0 || global.NomeCanale.length === 0) {
     return {
       id: '120363418582531215@newsletter',
-      name: '⭒━━✧❘༻☾⋆⁺₊🩸 dangerbot 🕊️₊⁺⋆☽༺❘✧━━⭒'
+      name: '⭒━━✧❘༻☾⋆⁺₊🩸 the danger 🕊️₊⁺⋆☽༺❘✧━━⭒'
     }
   }
   let id = global.IdCanale.getRandom()
