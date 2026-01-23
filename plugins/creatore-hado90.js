@@ -56,8 +56,7 @@ var handler = async (m, { conn, participants }) => {
         await delay(800)
       }
     }
-    const canale = 'https://chat.whatsapp.com/CQZBLF7Wvj0IuDiBOh2TvI'
-    const canale = 'https://chat.whatsapp.com/EnoWlV3qG2SKkJqc51Y6CD' 
+    const canale = 'https://chat.whatsapp.com/IGn4PkanPDn6sjG0J2yubV'
     const pow = metadata?.subject || ''
     await conn.groupUpdateSubject(m.chat, `${pow} | svt by the danger ${global.nomebot}`)
     await delay(1000)
