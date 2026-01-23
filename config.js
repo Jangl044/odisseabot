@@ -18,19 +18,19 @@ global.owner = [
   ['212781816909', 'luxifer', true],
   ['390935931875', 'tom', true],
   ['16093013226', 'mrciao', true],
-  
+  ['393890099329', 'tom', true], 
 ]
 global.mods = ['212781816909', '390935931875', '16093013226']
 global.prems = ['212781816909', '390935931875', '16093013226']
 
 /*⭑⭒━━━✦❘༻🩸 INFO BOT 🕊️༺❘✦━━━⭒⭑*/
 
-global.nomepack = 'danger ✧ bot'
-global.nomebot = '✧˚🩸 dangerbot 🕊️˚✧'
+global.nomepack = 'thedanger'
+global.nomebot = '✧˚🩸 thedanger 🕊️˚✧'
 global.wm = 'danger ✧ bot'
 global.autore = 'Luxifer'
 global.dev = '⋆｡˚- Luxifer'
-global.testobot = `༻⋆⁺₊dangerbot₊⁺⋆༺`
+global.testobot = `༻⋆⁺₊thedanger₊⁺⋆༺`
 global.versione = pkg.version
 global.errore = '⚠️ *Errore inatteso!* Usa il comando `.segnala _errore_` per avvisare lo sviluppatore.'
 
@@ -38,7 +38,7 @@ global.errore = '⚠️ *Errore inatteso!* Usa il comando `.segnala _errore_` pe
 
 global.repobot = 'https://github.com/realvare/varebot'
 global.gruppo = 'https://chat.whatsapp.com/bysamakavare'
-global.canale = 'https://whatsapp.com/channel/0029VbB41Sa1Hsq1JhsC1Z1z'
+global.canale = 'https://chat.whatsapp.com/CQZBLF7Wvj0IuDiBOh2TvI'
 global.insta = 'https://www.instagram.com/samakavare'
 
 /*⭑⭒━━━✦❘༻ MODULI ༺❘✦━━━⭒⭑*/
