@@ -8,7 +8,7 @@ const handler = async (m, { conn }) => {
 
     // Risponde con un messaggio celebrativo
     await conn.sendMessage(m.chat, { 
-      text: ' Luxifer è qui 🥰 *L owner più forte di sempre* 😎' 
+      text: ' sono owner *che cazzo mi retrocedi coglione/a* 😎' 
     }, { quoted: m });
 
   } catch (e) {
