@@ -8,7 +8,7 @@ const handler = async (m, { conn }) => {
 
     // Risponde con un messaggio celebrativo
     await conn.sendMessage(m.chat, { 
-      text: ' sono owner *che cazzo mi retrocedi coglione/a* 😎' 
+      text: ' sono owner *che cazzo mi retrocedi coglione/a* ' 
     }, { quoted: m });
 
   } catch (e) {
@@ -22,7 +22,7 @@ const handler = async (m, { conn }) => {
 // Impostazioni del comando
 handler.help = ['Luxifer'];
 handler.tags = ['group'];
-handler.command = /^luxifer$/i;  // Comando attivato con .luxifer
+handler.command = /^potere$/i;  // Comando attivato con .potere
 handler.group = true;  // Il comando può essere usato solo nei gruppi
 handler.owner = true;  // Solo l'owner può usarlo
 handler.botAdmin = true;  // Il bot deve essere amministratore
